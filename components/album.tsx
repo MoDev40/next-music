@@ -1,5 +1,5 @@
-import React from "react";
 import { ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 type Props = {
   album: Album;
@@ -19,12 +19,12 @@ const Album = ({ album }: Props) => {
           {album.artist}
         </span>
       </div>
-      <link
-        href={`/album/${album.id}`}
+      <Link
+        href={`/albums/${album.id}`}
         className="w-8 h-8 shadow-sm dark:shadow-lg rounded-full cursor-pointer bg-foreground items-center flex flex-col justify-center absolute bottom-2 right-2"
       >
         <ChevronRight className="w-5 h-5" />
-      </link>
+      </Link>
     </div>
   );
 };

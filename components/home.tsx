@@ -1,8 +1,5 @@
-import { ThemeToggle } from "@/components/toggle-themes";
-import { Button } from "@/components/ui/button";
-import { Music2Icon, UserIcon } from "lucide-react";
-import LatestAlbum from "./latest-album";
 import { Suspense } from "react";
+import LatestAlbum from "./latest-album";
 import { AlbumSkeleton } from "./skeletons";
 
 export const dynamic = "force-dynamic";

@@ -1,36 +1,94 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Database Models Documentation
 
-## Getting Started
+## Track
 
-First, run the development server:
+Represents an individual track or song.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+| Field        | Type            | Description                                      |
+|--------------|-----------------|--------------------------------------------------|
+| `id`         | String           | Unique identifier for the track.                |
+| `title`      | String           | Title of the track.                             |
+| `artist`     | String           | Name of the person or group performing the track.|
+| `duration`   | Int              | Duration of the track in seconds.               |
+| `albumId`    | String?          | Optional ID of the album this track belongs to. |
+| `album`      | MusicAlbum?      | Optional relation to the album the track belongs to. |
+| `genreId`    | String?          | Optional ID of the genre this track belongs to. |
+| `genre`      | MusicGenre?      | Optional relation to the genre this track belongs to. |
+| `trackUrl`   | String           | URL location of the track file.                 |
+| `trackKey`   | String           | Unique key of the track for storage purposes.   |
+| `favorites`  | UserFavorite[]   | List of users who have marked this track as a favorite. |
+| `playListTracks` | PlayListTrack[] | List of playlist-track relations including this track. |
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## MusicAlbum
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Represents an album, which is a collection of tracks.
 
-## Learn More
+| Field         | Type        | Description                                          |
+| ------------- | ----------- | ---------------------------------------------------- |
+| `id`          | String      | Unique identifier for the album.                     |
+| `title`       | String      | Title of the album.                                  |
+| `artist`      | String      | Name of the person or group that released the album. |
+| `releaseDate` | DateTime?   | Optional release date of the album.                  |
+| `genreId`     | String?     | Optional ID of the genre the album belongs to.       |
+| `genre`       | MusicGenre? | Optional relation to the genre the album belongs to. |
+| `tracks`      | Track[]     | List of tracks included in this album.               |
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## UserFavorite
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Represents a user's favorite track.
 
-## Deploy on Vercel
+| Field     | Type   | Description                                              |
+| --------- | ------ | -------------------------------------------------------- |
+| `id`      | String | Unique identifier for the favorite.                      |
+| `trackId` | String | ID of the track marked as a favorite.                    |
+| `userId`  | String | ID of the user who marked the track as a favorite.       |
+| `track`   | Track  | Relation to the track marked as a favorite.              |
+| `user`    | User   | Relation to the user who marked the track as a favorite. |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## UserPlaylist
+
+Represents a user's playlist, which contains multiple tracks.
+
+| Field            | Type            | Description                                                     |
+| ---------------- | --------------- | --------------------------------------------------------------- |
+| `id`             | String          | Unique identifier for the playlist.                             |
+| `name`           | String          | Name of the playlist.                                           |
+| `userId`         | String          | ID of the user who created the playlist.                        |
+| `user`           | User            | Relation to the user who created the playlist.                  |
+| `playListTracks` | PlayListTrack[] | List of playlist-track relations associated with this playlist. |
+
+---
+
+## PlayListTrack
+
+Represents the relationship between a playlist and a track.
+
+| Field          | Type         | Description                                         |
+| -------------- | ------------ | --------------------------------------------------- |
+| `id`           | String       | Unique identifier for the playlist-track relation.  |
+| `trackId`      | String       | ID of the track in the playlist.                    |
+| `track`        | Track        | Relation to the track in the playlist.              |
+| `playListId`   | String       | ID of the playlist containing the track.            |
+| `userPlaylist` | UserPlaylist | Relation to the playlist.                           |
+| `createdAt`    | DateTime     | Timestamp when the track was added to the playlist. |
+
+---
+
+## MusicGenre
+
+Represents a music genre that can be associated with both tracks and albums.
+
+| Field    | Type         | Description                                   |
+| -------- | ------------ | --------------------------------------------- |
+| `id`     | String       | Unique identifier for the genre.              |
+| `name`   | String       | Name of the genre (e.g., Rock, Pop, Hip-Hop). |
+| `tracks` | Track[]      | List of tracks associated with this genre.    |
+| `albums` | MusicAlbum[] | List of albums associated with this genre.    |
+
+---

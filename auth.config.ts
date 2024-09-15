@@ -1,12 +1,8 @@
-import { NextAuthConfig } from "next-auth";
-import prisma from "./lib/client";
-import { PrismaAdapter } from "@auth/prisma-adapter";
-const authConfig = {
-  adapter: PrismaAdapter(prisma),
-  session: {
-    strategy: "jwt",
-    maxAge: 2 * 24 * 60 * 60,
-  },
+import type { NextAuthConfig } from "next-auth";
+import Google from "next-auth/providers/google";
+
+export default {
+  providers: [Google],
   callbacks: {
     async authorized({ auth }) {
       return !!auth?.user;
@@ -31,7 +27,4 @@ const authConfig = {
       };
     },
   },
-  providers: [],
 } satisfies NextAuthConfig;
-
-export default authConfig;

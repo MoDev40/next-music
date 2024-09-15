@@ -4,6 +4,10 @@ export default auth(function (req) {
   const { auth, nextUrl } = req;
   const isLoggedIn = !!auth;
 
+  if (isLoggedIn && nextUrl.pathname === "/signin") {
+    return Response.redirect(new URL("/", nextUrl.origin));
+  }
+
   if (auth?.user?.role === "USER" && nextUrl.pathname.includes("/dashboard")) {
     return Response.redirect(new URL("/", nextUrl.origin));
   }

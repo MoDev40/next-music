@@ -3,9 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Music2Icon, UserIcon } from "lucide-react";
 import LatestAlbum from "./latest-album";
 import { Suspense } from "react";
-import { LatestAlbumSkeleton } from "./skeletons";
+import { AlbumSkeleton } from "./skeletons";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 export default function Home() {
   return (
@@ -21,7 +21,7 @@ export default function Home() {
           </Button>
         </div>
       </header>
-      <Suspense fallback={<LatestAlbumSkeleton />}>
+      <Suspense fallback={<AlbumSkeleton />}>
         <LatestAlbum />
       </Suspense>
     </div>

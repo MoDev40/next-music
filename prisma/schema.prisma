@@ -1,14 +1,141 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+ 
 generator client {
   provider = "prisma-client-js"
 }
 
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+enum Role {
+  USER
+  ADMIN
+}
+
+model User {
+  id            String          @id @default(auto()) @map("_id") @db.ObjectId
+  name          String?
+  email         String?         @unique
+  role          Role          @default(USER)
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  favorites     UserFavorite[]
+  playlists     UserPlaylist[]
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+ 
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.String
+  access_token      String? @db.String
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.String
+  session_state     String?
+ 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+ 
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  @@unique([provider, providerAccountId])
+}
+ 
+model Session {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken String   @unique
+  userId       String   @db.ObjectId
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+ 
+model VerificationToken {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  identifier String
+  token      String
+  expires    DateTime
+ 
+  @@unique([identifier, token])
+}
+
+model Track {
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  artist      String
+  duration    Int           
+  albumId     String?       @db.ObjectId
+  album       MusicAlbum?   @relation(fields: [albumId], references: [id])
+  genreId     String?       @db.ObjectId
+  genre       MusicGenre?   @relation(fields: [genreId], references: [id])
+  favorites   UserFavorite[]
+  playlists   PlayListTrack[]
+  trackUrl    String
+  trackKey    String
+  @@index([title])
+  @@index([artist])
+  @@index([albumId])
+  @@index([genreId])
+}
+
+model MusicAlbum {
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  artist      String
+  releaseDate DateTime?
+  genreId     String?       @db.ObjectId
+  genre       MusicGenre?   @relation(fields: [genreId], references: [id])
+  tracks      Track[]
+
+  @@index([genreId])
+  @@index([title])
+  @@index([artist])
+}
+
+model UserFavorite {
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  trackId     String        @db.ObjectId
+  userId      String        @db.ObjectId
+  track       Track         @relation(fields: [trackId], references: [id])
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([trackId, userId])
+  @@index([userId])
+}
+
+model UserPlaylist {
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  userId      String        @db.ObjectId
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  playListTracks PlayListTrack[]
+  @@index([userId])
+  @@index([name])
+}
+
+model PlayListTrack {
+  id          String          @id @default(auto()) @map("_id") @db.ObjectId
+  trackId     String          @db.ObjectId
+  track       Track           @relation(fields: [trackId], references: [id])
+  playListId  String          @db.ObjectId
+  userPlaylist  UserPlaylist  @relation(fields: [playListId], references: [id], onDelete: Cascade)
+  @@unique([playListId, trackId])
+}
+
+model MusicGenre {
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  name        String        @unique
+  tracks      Track[]
+  albums      MusicAlbum[]
 }

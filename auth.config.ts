@@ -13,7 +13,6 @@ const authConfig = {
     },
     async jwt({ token, user }) {
       if (!user?.role) return token;
-      console.log(user.id);
       return {
         ...token,
         role: user.role,

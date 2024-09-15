@@ -12,3 +12,42 @@ export const getLatestSixMusicAlbum = async () => {
     console.error("getSixAlbum", error);
   }
 };
+
+export const getAlbums = async (page: number, filter?: string) => {
+  const skip = (page - 1) * 15;
+  try {
+    return await prisma.musicAlbum.findMany({
+      take: 15,
+      skip,
+      orderBy: {
+        title: "desc",
+      },
+      where: filter
+        ? {
+            OR: [
+              { artist: { contains: filter } },
+              { title: { contains: filter } },
+              { genre: { name: { contains: filter } } },
+            ],
+          }
+        : {},
+    });
+  } catch (error) {
+    console.error("getAlbums", error);
+  }
+};
+
+export const getAlbumWithTracks = async (id: string) => {
+  try {
+    return await prisma.musicAlbum.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        tracks: true,
+      },
+    });
+  } catch (error) {
+    console.error("getAlbumWithTracks", error);
+  }
+};

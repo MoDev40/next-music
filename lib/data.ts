@@ -36,3 +36,18 @@ export const getAlbums = async (page: number, filter?: string) => {
     console.error("getAlbums", error);
   }
 };
+
+export const getAlbumWithTracks = async (id: string) => {
+  try {
+    return await prisma.musicAlbum.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        tracks: true,
+      },
+    });
+  } catch (error) {
+    console.error("getAlbumWithTracks", error);
+  }
+};

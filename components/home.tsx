@@ -5,6 +5,8 @@ import LatestAlbum from "./latest-album";
 import { Suspense } from "react";
 import { LatestAlbumSkeleton } from "./skeletons";
 
+export const dynamic = 'force-dynamic';
+
 export default function Home() {
   return (
     <div className="flex flex-col space-y-5 bg-background text-foreground">

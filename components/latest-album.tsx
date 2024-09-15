@@ -3,6 +3,7 @@ import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+export const dynamic = "force-dynamic";
 
 const LatestAlbum = async () => {
   const latestSixMusicAlbum = await getLatestSixMusicAlbum();

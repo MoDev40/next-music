@@ -38,11 +38,16 @@ function MusicPlayer({ tracks }: Props) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="ghost" size="icon">
+        <Button
+          className={clsx({
+            hidden: !audio?.isPlaying,
+          })}
+          variant="ghost"
+          size="icon"
+        >
           <AudioLines
             className={clsx({
               "animate-pulse text-muted-foreground": audio?.isPlaying,
-              hidden: !audio?.isPlaying,
             })}
           />
         </Button>

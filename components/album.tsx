@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 const Album = ({ album }: Props) => {
   return (
     <div
-      className="relative bg-primary-foreground space-y-3 rounded-md shadow-sm p-2 w-full h-[20vh]"
+      className="relative -z-20 bg-primary-foreground space-y-3 rounded-md shadow-sm p-2 w-full h-[20vh]"
       key={album.id}
     >
       <div className="absolute space-y-3 bottom-3 left-2 md:left-5">

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { geistMono, geistSans } from "./fonts/fonts";
 import { ThemeProvider } from "@/components/theme-provider";
+import { AudioProvider } from "@/hooks/audio";
 
 export const metadata: Metadata = {
   title: "Ultimate Music Player App",
@@ -26,7 +27,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <AudioProvider>{children}</AudioProvider>
         </ThemeProvider>
         <Toaster />
       </body>

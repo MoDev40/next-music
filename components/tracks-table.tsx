@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { useAudio } from "@/hooks/audio";
 import { formatTime } from "@/lib/utils";
 import { Pause, Play } from "lucide-react";
-import MusicPlayer from "./music-player";
 
 type Props = {
   tracks: Track[];

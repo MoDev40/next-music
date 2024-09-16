@@ -3,6 +3,7 @@ import { Music2Icon, UserIcon } from "lucide-react";
 import React from "react";
 import { ThemeToggle } from "./toggle-themes";
 import { Button } from "./ui/button";
+import MusicPlayer from "./music-player";
 
 const TopNavBar = () => {
   return (
@@ -11,7 +12,8 @@ const TopNavBar = () => {
         <div className="flex items-center gap-4">
           <Music2Icon />
         </div>
-        <div className="items-center space-x-3">
+        <div className="flex flex-row items-center space-x-3">
+          <MusicPlayer />
           <ThemeToggle />
           <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full">
             <UserIcon className="w-5 h-5" />

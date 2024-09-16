@@ -51,3 +51,28 @@ export const getAlbumWithTracks = async (id: string) => {
     console.error("getAlbumWithTracks", error);
   }
 };
+
+export const getTracks = async (page: number, filter?: string) => {
+  const skip = (page - 1) * 15;
+  try {
+    return await prisma.track.findMany({
+      take: 15,
+      skip,
+      orderBy: {
+        title: "desc",
+      },
+      where: filter
+        ? {
+            OR: [
+              { artist: { contains: filter } },
+              { title: { contains: filter } },
+              { album: { title: { contains: filter } } },
+              { genre: { name: { contains: filter } } },
+            ],
+          }
+        : {},
+    });
+  } catch (error) {
+    console.error("getTracks", error);
+  }
+};

@@ -1,4 +1,3 @@
-import { auth } from "@/auth";
 import { prisma } from "@/lib/client";
 import { NextRequest, NextResponse } from "next/server";
 

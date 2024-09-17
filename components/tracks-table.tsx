@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useAudio } from "@/hooks/audio";
 import { formatTime } from "@/lib/utils";
 import { Pause, Play } from "lucide-react";
+import AddToFavorite from "./add-to-favorite";
 
 type Props = {
   tracks: Track[];
@@ -46,7 +47,9 @@ const TracksTable = ({ tracks }: Props) => {
             <TableCell className="flex-none">
               <span>{formatTime(track.duration)}</span>
             </TableCell>
-            <TableCell className="flex-none space-x-2 text-right"></TableCell>
+            <TableCell className="flex-none space-x-2 text-right">
+              <AddToFavorite trackId={track.id} />
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>

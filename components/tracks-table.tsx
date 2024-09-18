@@ -8,11 +8,13 @@ import { formatTime } from "@/lib/utils";
 import { Pause, Play } from "lucide-react";
 import AddToFavorite from "./add-to-favorite";
 import AddToPlaylistDialog from "./add-to-playlist";
+import clsx from "clsx";
 
 type Props = {
   tracks: Track[];
+  type?: "PLAYLIST" | "FAVORITE";
 };
-const TracksTable = ({ tracks }: Props) => {
+const TracksTable = ({ tracks, type }: Props) => {
   const { setAudio, audio, togglePlayPause } = useAudio();
 
   return (
@@ -48,7 +50,11 @@ const TracksTable = ({ tracks }: Props) => {
             <TableCell className="flex-none">
               <span>{formatTime(track.duration)}</span>
             </TableCell>
-            <TableCell className="flex-none space-x-2 text-right">
+            <TableCell
+              className={clsx("flex-none space-x-2 text-right", {
+                hidden: type === "FAVORITE" || type === "PLAYLIST",
+              })}
+            >
               <AddToFavorite trackId={track.id} />
               <AddToPlaylistDialog trackId={track.id} />
             </TableCell>

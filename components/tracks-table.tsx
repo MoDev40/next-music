@@ -7,6 +7,7 @@ import { useAudio } from "@/hooks/audio";
 import { formatTime } from "@/lib/utils";
 import { Pause, Play } from "lucide-react";
 import AddToFavorite from "./add-to-favorite";
+import AddToPlaylistDialog from "./add-to-playlist";
 
 type Props = {
   tracks: Track[];
@@ -49,6 +50,7 @@ const TracksTable = ({ tracks }: Props) => {
             </TableCell>
             <TableCell className="flex-none space-x-2 text-right">
               <AddToFavorite trackId={track.id} />
+              <AddToPlaylistDialog trackId={track.id} />
             </TableCell>
           </TableRow>
         ))}

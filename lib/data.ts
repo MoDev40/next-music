@@ -76,3 +76,26 @@ export const getTracks = async (page: number, filter?: string) => {
     console.error("getTracks", error);
   }
 };
+
+export const getUserFavorites = async (userId: string, page: number) => {
+  const skip = (page - 1) * 15;
+  try {
+    return await prisma.userFavorite.findMany({
+      take: 15,
+      skip,
+      orderBy: {
+        track: {
+          title: "desc",
+        },
+      },
+      include: {
+        track: true,
+      },
+      where: {
+        userId,
+      },
+    });
+  } catch (error) {
+    console.error("getUserFavorites", error);
+  }
+};

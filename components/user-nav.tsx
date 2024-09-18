@@ -26,10 +26,6 @@ function UserNav() {
           })}
         >
           <Avatar className="h-8 w-8">
-            <AvatarImage
-              src="/placeholder.svg?height=32&width=32"
-              alt="User avatar"
-            />
             <AvatarFallback>{data?.user?.name?.charAt(0)}</AvatarFallback>
           </Avatar>
         </Button>
@@ -50,7 +46,11 @@ function UserNav() {
           <ListMusicIcon className="mr-2 h-4 w-4" />
           <span>My Playlists</span>
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            router.push("/favorites");
+          }}
+        >
           <HeartIcon className="mr-2 h-4 w-4" />
           <span>Favorites</span>
         </DropdownMenuItem>

@@ -28,12 +28,21 @@ const fetcher: Fetcher<Options[]> = (url: string) =>
 
 const PlaylistSelect = ({ onChange, value }: Props) => {
   const { data: session, status } = useSession();
-  if (!session || status !== "authenticated") return;
 
   const { data, isLoading } = useSWR(
-    `${api}/music/playlist/options/${session?.user?.id}`,
+    session?.user?.id
+      ? `${api}/music/playlist/options/${session.user.id}`
+      : null,
     fetcher
   );
+
+  if (!session || status !== "authenticated") {
+    return (
+      <div>
+        <h2>{status}</h2>
+      </div>
+    );
+  }
 
   if (isLoading) return <Loader2 className="w-5 h-5 animate-spin" />;
 

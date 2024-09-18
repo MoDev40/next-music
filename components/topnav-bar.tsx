@@ -1,9 +1,8 @@
 "use client";
-import { Music2Icon, UserIcon } from "lucide-react";
-import React from "react";
-import { ThemeToggle } from "./toggle-themes";
-import { Button } from "./ui/button";
+import { Music2Icon } from "lucide-react";
 import MusicPlayer from "./music-player";
+import { ThemeToggle } from "./toggle-themes";
+import UserNav from "./user-nav";
 
 const TopNavBar = () => {
   return (
@@ -15,9 +14,7 @@ const TopNavBar = () => {
         <div className="flex flex-row items-center space-x-3">
           <MusicPlayer />
           <ThemeToggle />
-          <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full">
-            <UserIcon className="w-5 h-5" />
-          </Button>
+          <UserNav />
         </div>
       </nav>
     </header>

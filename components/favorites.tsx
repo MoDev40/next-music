@@ -5,6 +5,9 @@ import { notFound } from "next/navigation";
 type Props = {
   userId: string;
 };
+
+export const dynamic = "force-dynamic";
+
 const Favorites = async ({ userId }: Props) => {
   const favorites = await getUserFavorites(userId, 1);
 

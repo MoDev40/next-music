@@ -2,6 +2,8 @@ import { auth } from "@/auth";
 import Favorites from "@/components/favorites";
 import { Suspense } from "react";
 
+export const dynamic = "force-dynamic";
+
 const Page = async () => {
   const session = await auth();
   if (!session?.user?.id) {

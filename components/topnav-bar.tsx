@@ -1,10 +1,15 @@
 "use client";
-import { Music2Icon } from "lucide-react";
+import { Music2Icon, User } from "lucide-react";
 import MusicPlayer from "./music-player";
 import { ThemeToggle } from "./toggle-themes";
 import UserNav from "./user-nav";
+import Link from "next/link";
+import { useSession } from "next-auth/react";
+import clsx from "clsx";
+import { Button } from "./ui/button";
 
 const TopNavBar = () => {
+  const { data, status } = useSession();
   return (
     <header className="fixed top-0 left-0 right-0 bg-background border-border">
       <nav className="flex items-center justify-between px-6 py-4 border-b">
@@ -15,6 +20,17 @@ const TopNavBar = () => {
           <MusicPlayer />
           <ThemeToggle />
           <UserNav />
+          <Link
+            className={clsx({
+              "hidden pointer-events-none":
+                data || status !== "unauthenticated",
+            })}
+            href="/api/auth/signin"
+          >
+            <Button variant="ghost" size="icon">
+              <User className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+            </Button>
+          </Link>
         </div>
       </nav>
     </header>

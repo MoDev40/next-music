@@ -99,3 +99,22 @@ export const getUserFavorites = async (userId: string, page: number) => {
     console.error("getUserFavorites", error);
   }
 };
+
+export const getSearchedTracks = async (query: string) => {
+  try {
+    return query
+      ? await prisma.track.findMany({
+          where: {
+            OR: [
+              { artist: { contains: query } },
+              { title: { contains: query } },
+              { album: { title: { contains: query } } },
+              { genre: { name: { contains: query } } },
+            ],
+          },
+        })
+      : [];
+  } catch (error) {
+    console.error("getSearchedTracks", error);
+  }
+};

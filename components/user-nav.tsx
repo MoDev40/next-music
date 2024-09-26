@@ -15,7 +15,7 @@ import { useRouter } from "next/navigation";
 
 function UserNav() {
   const { data, status } = useSession();
-  const router = useRouter();
+  const { push } = useRouter();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -42,13 +42,17 @@ function UserNav() {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            push("/playlist");
+          }}
+        >
           <ListMusicIcon className="mr-2 h-4 w-4" />
           <span>My Playlists</span>
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => {
-            router.push("/favorites");
+            push("/favorites");
           }}
         >
           <HeartIcon className="mr-2 h-4 w-4" />
@@ -57,7 +61,7 @@ function UserNav() {
         <DropdownMenuSeparator />
         <DropdownMenuItem
           onClick={() => {
-            router.push("/api/auth/signout");
+            push("/api/auth/signout");
           }}
         >
           <LogOutIcon className="mr-2 h-4 w-4" />

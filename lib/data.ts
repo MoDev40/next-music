@@ -99,3 +99,20 @@ export const getUserFavorites = async (userId: string, page: number) => {
     console.error("getUserFavorites", error);
   }
 };
+export const getUserPlaylist = async (userId: string, page: number) => {
+  const skip = (page - 1) * 15;
+  try {
+    return await prisma.userPlaylist.findMany({
+      take: 15,
+      skip,
+      include: {
+        playListTracks: true,
+      },
+      where: {
+        userId,
+      },
+    });
+  } catch (error) {
+    console.error("getUserPlaylist", error);
+  }
+};

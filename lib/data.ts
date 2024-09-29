@@ -118,3 +118,39 @@ export const getSearchedTracks = async (query: string) => {
     console.error("getSearchedTracks", error);
   }
 };
+
+export const getUserPlaylist = async (userId: string, page: number) => {
+  const skip = (page - 1) * 15;
+  try {
+    return await prisma.userPlaylist.findMany({
+      take: 15,
+      skip,
+      include: {
+        playListTracks: true,
+      },
+      where: {
+        userId,
+      },
+    });
+  } catch (error) {
+    console.error("getUserPlaylist", error);
+  }
+};
+
+export const getUserPlaylistTracks = async (id: string, page: number) => {
+  const skip = (page - 1) * 15;
+  try {
+    return await prisma.playListTrack.findMany({
+      take: 15,
+      skip,
+      include: {
+        track: true,
+      },
+      where: {
+        id,
+      },
+    });
+  } catch (error) {
+    console.error("getUserPlaylistTracks", error);
+  }
+};

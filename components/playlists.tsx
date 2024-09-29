@@ -1,6 +1,7 @@
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { getUserPlaylist } from "@/lib/data";
 import { Music2Icon } from "lucide-react";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 const Playlists = async ({ id }: { id: string }) => {
@@ -13,11 +14,13 @@ const Playlists = async ({ id }: { id: string }) => {
       {playlists.map((playlist) => (
         <Card key={playlist.id} className="overflow-hidden">
           <CardContent className="p-4">
-            <CardTitle className="text-lg mb-2">{playlist.name}</CardTitle>
-            <div className="flex items-center text-sm text-muted-foreground">
-              <Music2Icon className="w-4 h-4 mr-2" />
-              <span>{playlist.playListTracks.length} tracks</span>
-            </div>
+            <Link href={`/playlist/${playlist.id}`}>
+              <CardTitle className="text-lg mb-2">{playlist.name}</CardTitle>
+              <div className="flex items-center text-sm text-muted-foreground">
+                <Music2Icon className="w-4 h-4 mr-2" />
+                <span>{playlist.playListTracks.length} tracks</span>
+              </div>
+            </Link>
           </CardContent>
         </Card>
       ))}

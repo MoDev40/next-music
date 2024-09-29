@@ -147,7 +147,7 @@ export const getUserPlaylistTracks = async (id: string, page: number) => {
         track: true,
       },
       where: {
-        id,
+        playListId:id,
       },
     });
   } catch (error) {

@@ -116,3 +116,21 @@ export const getUserPlaylist = async (userId: string, page: number) => {
     console.error("getUserPlaylist", error);
   }
 };
+
+export const getUserPlaylistTracks = async (id: string, page: number) => {
+  const skip = (page - 1) * 15;
+  try {
+    return await prisma.playListTrack.findMany({
+      take: 15,
+      skip,
+      include: {
+        track: true,
+      },
+      where: {
+        playListId: id,
+      },
+    });
+  } catch (error) {
+    console.error("getUserPlaylistTracks", error);
+  }
+};

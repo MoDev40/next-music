@@ -1,20 +1,28 @@
 "use client";
+import SearchInput from "@/components/search";
+import clsx from "clsx";
 import { Music2Icon, User } from "lucide-react";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import MusicPlayer from "./music-player";
 import { ThemeToggle } from "./toggle-themes";
-import UserNav from "./user-nav";
-import Link from "next/link";
-import { useSession } from "next-auth/react";
-import clsx from "clsx";
 import { Button } from "./ui/button";
+import UserNav from "./user-nav";
 
 const TopNavBar = () => {
   const { data, status } = useSession();
+  const pathName = usePathname();
+
   return (
     <header className="fixed top-0 left-0 right-0 bg-background border-border">
       <nav className="flex items-center justify-between px-6 py-4 border-b">
         <div className="flex items-center gap-4">
-          <Music2Icon />
+          {pathName !== "/search" ? (
+            <Music2Icon />
+          ) : (
+            <SearchInput placeholder="Search..." className="w-full" />
+          )}
         </div>
         <div className="flex flex-row items-center space-x-3">
           <MusicPlayer />

@@ -1,6 +1,6 @@
-import Search from "@/components/search";
 import SearchMusic from "@/components/search-music";
-import React, { Suspense } from "react";
+import { TracksTableSkeleton } from "@/components/skeletons";
+import { Suspense } from "react";
 
 type SearchParams = {
   query?: string;
@@ -9,8 +9,7 @@ const Page = ({ searchParams }: { searchParams: SearchParams }) => {
   const query = searchParams.query || "";
   return (
     <div className="flex flex-col space-y-5 mx-auto container">
-      <Search placeholder="Search..." />
-      <Suspense fallback={<h1>Searching....</h1>}>
+      <Suspense fallback={<TracksTableSkeleton />}>
         <SearchMusic query={query} />
       </Suspense>
     </div>

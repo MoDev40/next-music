@@ -11,7 +11,7 @@ type Props = {
   placeholder: string;
 };
 
-const Search = ({ className, placeholder }: Props) => {
+const SearchInput = ({ className, placeholder }: Props) => {
   const pathName = usePathname();
   const { replace } = useRouter();
   const urlParams = new URLSearchParams();
@@ -35,4 +35,4 @@ const Search = ({ className, placeholder }: Props) => {
   );
 };
 
-export default Search;
+export default SearchInput;

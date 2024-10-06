@@ -25,29 +25,31 @@ function AlbumSkeleton() {
 
 function TracksTableSkeleton({ rows = 5 }) {
   return (
-    <Table>
-      <TableBody>
-        {Array.from({ length: rows }).map((_, index) => (
-          <TableRow key={index} className="flex items-center">
-            <TableCell className="flex-none pr-0">
-              <Button size="icon" variant="ghost" disabled>
-                <Skeleton className="h-4 w-4" />
-              </Button>
-            </TableCell>
-            <TableCell className="flex-grow">
-              <Skeleton className="h-4 w-full max-w-[200px]" />
-            </TableCell>
-            <TableCell className="flex-none">
-              <Skeleton className="h-4 w-12" />
-            </TableCell>
-            <TableCell className="flex-none space-x-2 text-right">
-              <Skeleton className="inline-block h-8 w-8" />
-              <Skeleton className="inline-block h-8 w-8" />
-            </TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+    <div className="container mx-auto">
+      <Table>
+        <TableBody>
+          {Array.from({ length: rows }).map((_, index) => (
+            <TableRow key={index} className="flex items-center">
+              <TableCell className="flex-none pr-0">
+                <Button size="icon" variant="ghost" disabled>
+                  <Skeleton className="h-4 w-4" />
+                </Button>
+              </TableCell>
+              <TableCell className="flex-grow">
+                <Skeleton className="h-4 w-full max-w-[200px]" />
+              </TableCell>
+              <TableCell className="flex-none">
+                <Skeleton className="h-4 w-12" />
+              </TableCell>
+              <TableCell className="flex-none space-x-2 text-right">
+                <Skeleton className="inline-block h-8 w-8" />
+                <Skeleton className="inline-block h-8 w-8" />
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
   );
 }
 

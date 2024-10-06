@@ -1,8 +1,13 @@
+import { TracksTableSkeleton } from "@/components/skeletons";
 import Tracks from "@/components/tracks";
-import React from "react";
+import React, { Suspense } from "react";
 
 const Page = () => {
-  return <Tracks />;
+  return (
+    <Suspense fallback={<TracksTableSkeleton rows={12} />}>
+      <Tracks />
+    </Suspense>
+  );
 };
 
 export default Page;
